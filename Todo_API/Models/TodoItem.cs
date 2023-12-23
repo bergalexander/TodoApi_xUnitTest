@@ -5,17 +5,19 @@
         public int ID { get; set; }
         public string? Title { get; set; }
         public string? Description { get; set; }
+        public DateTime DeadLine { get; set; }
         public bool IsDone { get; set; }
 
         public TodoItem()
         {
 
         }
-        public TodoItem(int iD, string text, string description, bool isDone)
+        public TodoItem(int iD, string text, string description, DateTime date, bool isDone)
         {
             ID = iD;
             Title = text;
-            Description = description;  
+            Description = description;
+            DeadLine = date;
             IsDone = isDone;
         }
     }

@@ -22,7 +22,7 @@ namespace Todo_API_Test
         public async Task Should_Return_Todo_Whit_Details()
         {
             // Arrange
-            var note = new TodoItem(1, "title", "description", false);
+            var note = new TodoItem(1, "title", "description", new DateTime(2023-12-26), false);
             var controller = new TodoController(_database);
 
             // Act
@@ -36,7 +36,7 @@ namespace Todo_API_Test
 
             Assert.NotNull(addedItem);
             Assert.Equal(note.Title, addedItem.Title);
-            
+
 
         }
         [Fact]
@@ -52,7 +52,7 @@ namespace Todo_API_Test
         public async Task Should_Delete_Todo()
         {
             //Act
-            var note = new TodoItem(1, "title","description", false);
+            var note = new TodoItem(1, "title", "description", new DateTime(2023 - 12 - 26), false);
             var controller = new TodoController(_database);
 
             //Act
