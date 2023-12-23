@@ -96,8 +96,11 @@ function showNote(note) {
     spanDescription.textContent = note.description;
 
     //Add deadline
+    //Convert to not showing time but only yyyy-mm-dd
+    const deadlineDate = new Date(note.deadLine);
+    const formattedDeadline = deadlineDate.toLocaleDateString();
     const spanDeadline = li.querySelector('.note-deadline');
-    spanDeadline.textContent = note.deadLine;
+    spanDeadline.textContent = formattedDeadline;
 
 
     // Activate the delete button.
