@@ -7,7 +7,7 @@ using Todo_API.Models;
 namespace Todo_API.Controllers
 {
     [ApiController]
-    [Route("api/notes")]
+    [Route("/notes")]
     public class TodoController : ControllerBase
     {
         private readonly TodoContex dataBase;
