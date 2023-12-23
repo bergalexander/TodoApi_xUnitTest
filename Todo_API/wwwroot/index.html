@@ -12,7 +12,8 @@
     <template id="todo-item-template">
         <li class="note-container" data-note-id="">
             <input type="checkbox" class="note-checkbox">
-            <span class="note-text"></span>
+            <span class="note-title"></span>
+            <span class="note-description"></span>
             <button type="button" class="delete-button">❌</button>
         </li>
     </template>
@@ -22,7 +23,9 @@
     <main>
         <form id="add-form" autocomplete="off">
             <button type="button" id="toggle-all-button">🔽</button>
-            <input type="text" autofocus placeholder="What needs to be done?" id="add-input">
+            <input type="text" autofocus placeholder="Title" id="add-input-title">
+            <input type="text" autofocus placeholder="Description" id="add-input-description">
+            <button type="submit" id="add-input-button">Add note</button>
         </form>
         <ul id="todo-list"></ul>
         <div id="info-row" hidden>
