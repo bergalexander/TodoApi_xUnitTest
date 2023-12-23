@@ -22,7 +22,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//Add static files to set up index page.
+//Add static files to set up index page from wwwroot
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
