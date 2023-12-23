@@ -2,7 +2,8 @@
 
 // Find all the various DOM elements.
 const addForm = document.querySelector('#add-form');
-const addInput = document.querySelector('#add-input');
+const addTitle = document.querySelector('#add-input-title');
+const addDescription = document.querySelector('#add-input-description');
 const toggleAllButton = document.querySelector('#toggle-all-button');
 const todoList = document.querySelector('#todo-list');
 const infoRow = document.querySelector('#info-row');
@@ -76,16 +77,22 @@ function showNote(note) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 id: note.id,
-                text: note.text,
+                title: note.title,
+                description: note.description,
                 isDone: checkbox.checked,
             }),
         });
         loadNotes();
     };
 
-    // Add the note text itself.
-    const span = li.querySelector('.note-text');
-    span.textContent = note.text;
+    // Add title
+    const spanTitle = li.querySelector('.note-title');
+    spanTitle.textContent = note.title;
+
+    // Add description
+    const spanDescription = li.querySelector('.note-description');
+    spanDescription.textContent = note.description;
+
 
     // Activate the delete button.
     const deleteButton = li.querySelector('.delete-button');
@@ -101,14 +108,18 @@ function showNote(note) {
 addForm.onsubmit = async event => {
     event.preventDefault();
 
-    const noteText = addInput.value;
-    if (noteText.trim() !== '') {
+    const noteTitle = addTitle.value;
+    const noteDescription = addDescription.value;
+
+    if (noteTitle.trim() !== '' && noteDescription.trim() !== '') {
         // Clear the input after adding a note.
-        addInput.value = '';
+        addTitle.value = '';
+        addDescription.value = '';
 
         // Send the note to the backend.
         const note = {
-            text: noteText,
+            title: noteTitle,
+            description: noteDescription,
             isDone: false,
         };
         await fetch(api + '/notes', {
