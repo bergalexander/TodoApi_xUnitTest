@@ -4,6 +4,7 @@
 const addForm = document.querySelector('#add-form');
 const addTitle = document.querySelector('#add-input-title');
 const addDescription = document.querySelector('#add-input-description');
+const addDeadline = document.querySelector('#add-input-date');
 const toggleAllButton = document.querySelector('#toggle-all-button');
 const todoList = document.querySelector('#todo-list');
 const infoRow = document.querySelector('#info-row');
@@ -79,6 +80,7 @@ function showNote(note) {
                 id: note.id,
                 title: note.title,
                 description: note.description,
+                deadLine: note.deadLine,
                 isDone: checkbox.checked,
             }),
         });
@@ -92,6 +94,10 @@ function showNote(note) {
     // Add description
     const spanDescription = li.querySelector('.note-description');
     spanDescription.textContent = note.description;
+
+    //Add deadline
+    const spanDeadline = li.querySelector('.note-deadline');
+    spanDeadline.textContent = note.deadLine;
 
 
     // Activate the delete button.
@@ -110,16 +116,24 @@ addForm.onsubmit = async event => {
 
     const noteTitle = addTitle.value;
     const noteDescription = addDescription.value;
+    const noteDeadLine = addDeadline.value;
 
-    if (noteTitle.trim() !== '' && noteDescription.trim() !== '') {
+    //To set deadline and check if its in the future i have to convert it to same format.
+    const currentDate = new Date();
+    let date = currentDate.toLocaleDateString()
+
+    if (noteTitle.trim() !== '' && noteDescription.trim() !== ''
+        && noteDeadLine >= date) {
         // Clear the input after adding a note.
         addTitle.value = '';
         addDescription.value = '';
+        addDeadline.value = '';
 
         // Send the note to the backend.
         const note = {
             title: noteTitle,
             description: noteDescription,
+            deadline: noteDeadLine,
             isDone: false,
         };
         await fetch(api + '/notes', {

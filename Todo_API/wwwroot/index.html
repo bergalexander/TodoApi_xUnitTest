@@ -14,6 +14,7 @@
             <input type="checkbox" class="note-checkbox">
             <span class="note-title"></span>
             <span class="note-description"></span>
+            <span class="note-deadline"></span>
             <button type="button" class="delete-button">❌</button>
         </li>
     </template>
@@ -25,6 +26,7 @@
             <button type="button" id="toggle-all-button">🔽</button>
             <input type="text" autofocus placeholder="Title" id="add-input-title">
             <input type="text" autofocus placeholder="Description" id="add-input-description">
+            <input type="date" autofocus placeholder="Deadline" id="add-input-date" />
             <button type="submit" id="add-input-button">Add note</button>
         </form>
         <ul id="todo-list"></ul>
