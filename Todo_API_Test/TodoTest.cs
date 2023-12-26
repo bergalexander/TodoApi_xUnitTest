@@ -22,7 +22,7 @@ namespace Todo_API_Test
         public async Task Should_Return_Todo_Whit_Details()
         {
             // Arrange
-            var note = new TodoItem(1, "title", "description", new DateTime(2023-12-26), false);
+            var note = new TodoItem(1, "title", "description", new DateTime(2023 - 12 - 26), false);
             var controller = new TodoController(_database);
 
             // Act
@@ -36,8 +36,9 @@ namespace Todo_API_Test
 
             Assert.NotNull(addedItem);
             Assert.Equal(note.Title, addedItem.Title);
-
-
+            Assert.Equal(note.Description, addedItem.Description);
+            Assert.Equal(note.DeadLine, addedItem.DeadLine);
+            Assert.Equal(note.IsDone, addedItem.IsDone);
         }
         [Fact]
         public async Task Should_Return_Null()
@@ -71,6 +72,56 @@ namespace Todo_API_Test
             //check if the notid is in database
             var itemInDatabase = _database.TodoItems.Find(noteId);
             Assert.Null(itemInDatabase);
+        }
+        [Fact]
+        public async Task Should_Toggle_All()
+        {
+
+            //Arrange
+            var note1 = new TodoItem(3, "title", "description", new DateTime(2023 - 12 - 26), false);
+            var note2 = new TodoItem(4, "title2", "description2", new DateTime(2023 - 12 - 26), false);
+            var controller = new TodoController(_database);
+            await controller.AddNote(note1);
+            await controller.AddNote(note2);
+
+            //Act
+            await controller.ToggelAll();
+
+            //Assert
+            Assert.True(note1.IsDone);
+            Assert.True(note2.IsDone);
+
+            //Test to if they are done should result in not done
+            //Act
+            await controller.ToggelAll();
+
+            //Assert
+            Assert.False(note1.IsDone);
+            Assert.False(note2.IsDone);
+        }
+
+        [Fact]
+        public async Task Should_Clear_All_Complete()
+        {
+            //Arrange
+            var controller = new TodoController(_database);
+            var note1 = new TodoItem(5, "title", "description", new DateTime(2023 - 12 - 26), false);
+            var note2 = new TodoItem(6, "title2", "description2", new DateTime(2023 - 12 - 26), true);
+            var note3 = new TodoItem(7, "title3", "description3", new DateTime(2023 - 12 - 26), true);
+            await controller.AddNote(note1);
+            await controller.AddNote(note2);
+            await controller.AddNote(note3);
+
+            //Act
+            await controller.ClearAll();
+
+            //Assert
+            var itemInDatabaseNote2 = _database.TodoItems.Find(note3.ID);
+            Assert.Null(itemInDatabaseNote2);
+            var itemInDatabaseNote3 = _database.TodoItems.Find(note3.ID);
+            Assert.Null(itemInDatabaseNote3);
+
+
         }
     }
 }
